@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Ajax\LanguageController;
 use App\Http\Controllers\Ajax\BlogController;
+use Illuminate\Http\Request; // Import lớp Request
 use App\Http\Controllers\Ajax\ThemeController;
 use App\Http\Controllers\Backend\Account\Ajax\UpdateStatusAccount;
 use App\Http\Controllers\Backend\Account\ProfileController;
@@ -14,3 +15,12 @@ Route::post('profile/update/image', [ProfileController::class, 'updateProfileIma
 Route::post('profile/update', [ProfileController::class, 'updateProfile'])->name('profile.update');
 Route::post('admin/account/updateStatus', [UpdateStatusAccount::class, 'updateStatus'])->name('admin.account.updateStatus');
 Route::post('blog/upload', [BlogController::class, 'uploadImage'])->name('blog.upload');
+// Xóa ảnh tạm thời trong session
+Route::post('/remove-temp-image', function (Request $request) {
+    if ($request->remove_image) {
+        // Xóa ảnh tạm thời trong session
+        session()->forget('image_temp');
+        return response()->json(['success' => true]);
+    }
+    return response()->json(['success' => false], 400);
+})->name('image.removeTemp');

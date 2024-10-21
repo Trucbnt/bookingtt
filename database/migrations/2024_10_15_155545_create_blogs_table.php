@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('blogs', function (Blueprint $table) {
             $table->id(); // ID của bài viết
-            $table->string('title'); // Tiêu đề bài viết
-            $table->text('content'); // Nội dung bài viết
-            $table->string('slug')->unique(); // Đường dẫn thân thiện (slug)
+            $table->string('title'); // Tiêu đề bài viết hỗ trợ đa ngôn ngữ
+            $table->string('content'); // Nội dung bài viết hỗ trợ đa ngôn ngữ
+            $table->string('slug')->unique(); // Đường dẫn thân thiện (slug) hỗ trợ đa ngôn ngữ
             $table->string('image')->nullable(); // Đường dẫn hình ảnh (nếu có)
             $table->foreignId('user_id')->constrained()->onDelete('cascade'); // ID của người dùng đăng bài
             $table->timestamps(); // Thời gian tạo và cập nhật

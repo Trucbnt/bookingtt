@@ -16,12 +16,14 @@ return new class extends Migration
             $table->id();
             $table->string('full_name');
             $table->string('phone')->unique();
-            $table->string('email');
+            $table->string('email')->unique();
             $table->string('image')->nullable();
             $table->string('address')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
             $table->string('status')->default('normal'); // Trạng thái tài khoản ['normal', 'locked', 'warning']
+           // Thêm trường ngày sinh
+           $table->date('birthday')->nullable(); // Trường ngày sinh, cho phép giá trị null
             $table->integer('code_sent')->nullable();
 
             $table->foreignId('role_id')->default(3)->constrained('roles')->onDelete('cascade');

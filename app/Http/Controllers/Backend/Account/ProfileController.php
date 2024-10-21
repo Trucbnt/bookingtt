@@ -55,16 +55,22 @@ class ProfileController extends Controller
                 'new_image_url' => Storage::url($newImagePath),
             ]);
         } catch (\Exception $e) {
-            return response()->json(['success' => false, 'message' => 'Failed to update profile image.']);
+            return response()->json(['success' => false, 'message' => 'Failed to update profile image: ' . $e->getMessage()]);
         }
     }
 
-    public function updateProfile(AccountUpdateRequest $request)
+    public function updateProfile(Request  $request)
     {
-        $idProfile = Auth::user()->id;
-        if ($this->accountService->updateAccount($idProfile, $request->all())) {
-            return redirect()->route('admin.profile')->with('success', 'Record updated successfully');
-        }
-        return redirect()->route('admin.profile')->with('error', 'Failed to update record. Please try again');
+        $request->validate([
+            'full_name' => 'required|string|max:255',
+            'phone' => ['required', 'regex:/^[0-9\-\+\(\)\s]+$/', 'max:15'], // Chỉ cho phép các ký tự số, dấu cộng, dấu gạch, dấu ngoặc
+            'email' => 'required|email|max:255',
+            'address' => 'nullable|string|max:255',
+        ]);
+        // Update user profile if no validation errors
+        $user = Auth::user();
+        $user->update($request->all());
+        // Return success response
+        return response()->json(['success' => 'Cập nhật thông tin thành công!']);
     }
 }

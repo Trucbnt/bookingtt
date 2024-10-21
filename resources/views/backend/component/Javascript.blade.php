@@ -34,6 +34,10 @@
     }
 
 </script>
+<!-- Truyền biến session cho JS -->
+<script>
+    window.hasImageTemp = @json(session()->has('image_temp'));
+</script>
 
 <!-- Bootstrap v5 JS (after jQuery) -->
 <script src="{{ asset('backend/assets/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
