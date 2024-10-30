@@ -1,32 +1,26 @@
 <?php
-
 namespace App\Events;
-
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-
-class NotificationEvent implements ShouldBroadcast
+class ReviewEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-
-    public $dataNotification;
-    public function __construct($dataNotification)
+    public $review;
+    public function __construct($review)
     {
-        $this->dataNotification = $dataNotification;
+        $this->review = $review;
     }
-
     public function broadcastOn()
     {
-        return new Channel('notifications');
+        return new Channel('reviews');
     }
-
     public function broadcastWith()
     {
         return [
-            'dataNotification' => $this->dataNotification,
+            'review' => $this->review,
         ];
     }
 }

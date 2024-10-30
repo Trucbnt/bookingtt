@@ -7,7 +7,8 @@ use App\Interfaces\Services\NotificationServiceInterface;
 use App\Interfaces\Services\ReviewServiceInterface;
 use App\Interfaces\Repositories\ReviewRepositoryInterface;
 use App\Traits\HandleExceptionTrait;
-
+use App\Events\ReviewEvent;
+use App\Models\Review;
 // Requests
 use App\Http\Requests\Frontend\Reviews\StoreRequest as ReviewStoreRequest;
 use App\Jobs\SendNotificationJob;
@@ -44,7 +45,9 @@ class ReviewController extends Controller
     public function index()
     {
 
-        return view(self::PATH_VIEW);
+        return view(self::PATH_VIEW,  [
+            'dataReviews' => $this->reviewService->getAllReviews([], 4),
+        ]);
     }
 
     /**
@@ -63,25 +66,7 @@ class ReviewController extends Controller
             // Tạo review mới
             $review = $this->reviewService->createReview($data);
 
-            // Log thông tin về review đã tạo
-            Log::info('New review created', ['review_id' => $review->id]);
-
-            // Gửi thông báo chung
-            $title = 'Review';
-            $message = 'A new review has been added!';
-
-            event(new NotificationEvent($title, $message, 'info', Auth::user()->full_name));
-            // dispatch(new SendNotificationJob($title, $message, 'info', Auth::user()->full_name)); // Thay thế 'info' và $review nếu cần
-
-            $data = [
-                'user_id'   => $data['user_id'],  // ID của người gui thông báo
-                'title'     => $title,
-                'message'   => $message,
-            ];
-
-            $this->notificationService->createNotification($data);
-
-            Log::info('SendNotificationJob dispatched', ['review_id' => $review->id]);
+            event(new ReviewEvent($review));
 
             return redirect()->back()->with('success', __('messages.system.alert.success'));
         } catch (\Exception $e) {

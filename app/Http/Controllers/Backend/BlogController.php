@@ -58,6 +58,7 @@ class BlogController extends Controller
             'search' => $params['keyword'] ?? '', // Ensure this matches the search input name
             'start_date' => $params['start_date'] ?? '',
             'end_date' => $params['end_date'] ?? '',
+            'status' => $params['status'] ?? '',
         ];
 
         // Get the per_page value

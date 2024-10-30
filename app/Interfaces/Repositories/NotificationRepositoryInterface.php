@@ -55,4 +55,5 @@ interface NotificationRepositoryInterface extends RepositoryInterface
      * @return bool
      */
     public function deleteNotification(int $id);
+    public function countNewReviews();
 }
