@@ -39,14 +39,6 @@ Route::middleware(['auth', 'role:1, 2'])->group(function () {
             Route::put('{id}/update', [StaffController::class, 'update'])->where('id', '[0-9]+')->name('admin.staff.update');
             Route::delete('{id}/destroy', [StaffController::class, 'destroy'])->where('id', '[0-9]+')->name('admin.staff.destroy');
         });
-        Route::prefix('review')->group(function () {
-            Route::get('index', [ReviewController::class, 'index'])->name('admin.review.index');
-            Route::get('create', [ReviewController::class, 'create'])->name('admin.review.create');
-            Route::post('store', [ReviewController::class, 'store'])->name('admin.review.store');
-            Route::get('{id}/edit', [ReviewController::class, 'edit'])->where('id', '[0-9]+')->name('admin.review.edit');
-            Route::put('{id}/update', [ReviewController::class, 'update'])->where('id', '[0-9]+')->name('admin.review.update');
-            Route::delete('{id}/destroy', [ReviewController::class, 'destroy'])->where('id', '[0-9]+')->name('admin.review.destroy');
-        });
 
         // Admin Management
         Route::prefix('admin')->group(function () {
@@ -75,6 +67,7 @@ Route::middleware(['auth', 'role:1, 2'])->group(function () {
             Route::post('updatePermission', [RoleController::class, 'updatePermission'])->name('admin.role.updatePermission');
         });
 
+        // Permission Management
         Route::prefix('permission')->group(function () {
             Route::get('index', [PermissionController::class, 'index'])->name('admin.permission.index');
             Route::get('create', [PermissionController::class, 'create'])->name('admin.permission.create');
@@ -91,9 +84,17 @@ Route::middleware(['auth', 'role:1, 2'])->group(function () {
             Route::get('{id}/edit', [BlogController::class, 'edit'])->where('id', '[0-9]+')->name('admin.blog.edit');
             Route::put('{id}/update', [BlogController::class, 'update'])->where('id', '[0-9]+')->name('admin.blog.update');
             Route::delete('{id}/destroy', [BlogController::class, 'destroy'])->where('id', '[0-9]+')->name('admin.blog.destroy');
-            Route::get('permission', [BlogController::class, 'permission'])->name('admin.blog.permission');
-            Route::post('updatePermission', [BlogController::class, 'updatePermission'])->name('admin.blog.updatePermission');
         });
+
+        Route::prefix('review')->group(function () {
+            Route::get('index', [ReviewController::class, 'index'])->name('admin.review.index');
+            Route::get('create', [ReviewController::class, 'create'])->name('admin.review.create');
+            Route::post('store', [ReviewController::class, 'store'])->name('admin.review.store');
+            Route::get('{id}/edit', [ReviewController::class, 'edit'])->where('id', '[0-9]+')->name('admin.review.edit');
+            Route::put('{id}/update', [ReviewController::class, 'update'])->where('id', '[0-9]+')->name('admin.review.update');
+            Route::delete('{id}/destroy', [ReviewController::class, 'destroy'])->where('id', '[0-9]+')->name('admin.review.destroy');
+        });
+
         // Category Management
         Route::prefix('category')->group(function () {
             Route::get('index', [CategoryController::class, 'index'])->name('admin.category.index');
@@ -115,5 +116,6 @@ Route::middleware(['auth', 'role:1, 2'])->group(function () {
 
         Route::prefix('chat')->group(function () {
             Route::get('index', [ChatController::class, 'index'])->name('admin.chat.index');
+        });
     });
 });
