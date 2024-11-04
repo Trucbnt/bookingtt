@@ -7,10 +7,12 @@ use App\Http\Controllers\Backend\Account\StaffController;
 use App\Http\Controllers\Backend\Account\UserController;
 use App\Http\Controllers\Backend\BlogController;
 use App\Http\Controllers\Backend\CategoryController;
+use App\Http\Controllers\Backend\ChatController;
 use App\Http\Controllers\Backend\MenuController;
 use App\Http\Controllers\Backend\NotificationController;
 use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\PermissionController;
+use App\Http\Controllers\Backend\ReviewController;
 
 Route::middleware(['auth', 'role:1, 2'])->group(function () {
     Route::prefix('admin')->group(function () {
@@ -36,6 +38,14 @@ Route::middleware(['auth', 'role:1, 2'])->group(function () {
             Route::get('{id}/edit', [StaffController::class, 'edit'])->where('id', '[0-9]+')->name('admin.staff.edit');
             Route::put('{id}/update', [StaffController::class, 'update'])->where('id', '[0-9]+')->name('admin.staff.update');
             Route::delete('{id}/destroy', [StaffController::class, 'destroy'])->where('id', '[0-9]+')->name('admin.staff.destroy');
+        });
+        Route::prefix('review')->group(function () {
+            Route::get('index', [ReviewController::class, 'index'])->name('admin.review.index');
+            Route::get('create', [ReviewController::class, 'create'])->name('admin.review.create');
+            Route::post('store', [ReviewController::class, 'store'])->name('admin.review.store');
+            Route::get('{id}/edit', [ReviewController::class, 'edit'])->where('id', '[0-9]+')->name('admin.review.edit');
+            Route::put('{id}/update', [ReviewController::class, 'update'])->where('id', '[0-9]+')->name('admin.review.update');
+            Route::delete('{id}/destroy', [ReviewController::class, 'destroy'])->where('id', '[0-9]+')->name('admin.review.destroy');
         });
 
         // Admin Management
@@ -99,12 +109,11 @@ Route::middleware(['auth', 'role:1, 2'])->group(function () {
             Route::get('create', [MenuController::class, 'create'])->name('admin.menu.create');
             Route::post('store', [MenuController::class, 'store'])->name('admin.menu.store')->middleware("currency");
             Route::get('{id}/edit', [MenuController::class, 'edit'])->where('id', '[0-9]+')->name('admin.menu.edit');
-            Route::put('{id}/update', [MenuController::class, 'update'])->where('id', '[0-9]+')->name('admin.menu.update')->middleware("currency");;
+            Route::put('{id}/update', [MenuController::class, 'update'])->where('id', '[0-9]+')->name('admin.menu.update')->middleware("currency");
             Route::delete('{id}/destroy', [MenuController::class, 'destroy'])->where('id', '[0-9]+')->name('admin.menu.destroy');
         });
 
-        Route::prefix('notification')->group(function () {
-            Route::get('index', [NotificationController::class, 'index'])->name('admin.notification.index');
-        });
+        Route::prefix('chat')->group(function () {
+            Route::get('index', [ChatController::class, 'index'])->name('admin.chat.index');
     });
 });

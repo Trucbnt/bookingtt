@@ -23,6 +23,7 @@
     <!--end footer-->
     <!-- Footer End -->
     <!-- Switcher -->
+    @include('frontend.component.message')
     @include('frontend.component.lightdark')
 
     <!-- Back to top -->

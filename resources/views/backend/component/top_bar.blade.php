@@ -25,7 +25,7 @@
                 @include('backend.component.language')
 
                 @include('backend.component.light_dark_mode')
-
+                @include('backend.component.notification')
                 @include('backend.component.auth')
             </ul>
             <!--end topbar-nav-->
