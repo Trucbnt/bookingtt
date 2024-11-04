@@ -52,6 +52,9 @@ class BlogRepositoryEloquent extends BaseRepository implements BlogRepositoryInt
         if (!empty($filters['end_date'])) {
             $query->whereDate('created_at', '<=', $filters['end_date']);
         }
+        if (!empty($filters['status'])) {
+            $query->where('status', $filters['status']);
+        }
 
         // Sort by creation date (latest first)
         $query->orderBy('id', 'desc');

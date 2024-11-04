@@ -143,5 +143,9 @@ class ReviewService extends BaseService implements ReviewServiceInterface
             throw new Exception('Không thể cập nhật phân quyền: ' . $e->getMessage());
         }
     }
+    public function countNewReviews(): int
+    {
+        return $this->reviewRepository->countNewReviews();
+    }
 
 }

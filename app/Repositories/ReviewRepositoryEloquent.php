@@ -54,7 +54,12 @@ class ReviewRepositoryEloquent extends BaseRepository implements ReviewRepositor
         }
 
         // Sort by creation date (latest first)
-        $query->orderBy('id', 'desc');
+        if (!empty($filters['status'])) {
+            $query->where('status', $filters['status']);
+        }
+        // Sort by status (pending first) and then by creation date (latest first)
+        $query->orderByRaw("CASE WHEN status = 'pending' THEN 0 ELSE 1 END")
+            ->orderBy('id', 'desc');
 
         // Paginate results
         return $query->paginate($perPage);
@@ -115,5 +120,10 @@ class ReviewRepositoryEloquent extends BaseRepository implements ReviewRepositor
     public function deleteReview($id)
     {
         return $this->delete($id);
+    }
+    public function countNewReviews(): int
+    {
+        $query = $this->model->query();
+        return $query->where('status', 'pending')->count(); // Adjust based on your criteria
     }
 }

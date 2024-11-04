@@ -6,12 +6,12 @@
 
 <!-- Check session flash messages -->
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         // Check for session flash messages
         @if(session('success'))
-            executeExample('success');
+        executeExample('success');
         @elseif(session('error'))
-            executeExample('error');
+        executeExample('error');
         @endif
     });
 
@@ -32,8 +32,8 @@
             });
         }
     }
-</script>
 
+</script>
 <!-- Truyền biến session cho JS -->
 <script>
     window.hasImageTemp = @json(session()->has('image_temp'));
@@ -53,17 +53,6 @@
 <script src="{{ asset('backend/assets/custom/js/set-language.js') }}"></script>
 <script src="{{ asset('backend/assets/custom/js/set-theme.js') }}"></script>
 <script src="{{ asset('backend/assets/custom/js/set-slug.js') }}"></script>
-<!-- <script src="{{ asset('backend/assets/custom/js/set-select_all_checkbox.js') }}"></script> -->
-
-<script>
-    var csrfToken = '{{ csrf_token() }}';
-</script>
-
-<script>
-    var updateStatusUrl = '{{ route("admin.review.updateStatus") }}';
-</script>
-<script src="{{ asset('backend/assets/custom/js/ajax/set-status-review.js') }}"></script>
-
-<script src="{{ asset('backend/assets/custom/js/ajax/set-notification.js') }}"></script>
+<script src="{{ asset('backend/assets/custom/js/set-select_all_checkbox.js') }}"></script>
 
 @stack('script')
