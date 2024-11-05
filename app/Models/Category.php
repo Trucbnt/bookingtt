@@ -13,7 +13,10 @@ class Category extends Model
 
     protected $fillable = [
         'name',
-        'slug',
+        'status'
+    ];
+    protected $casts = [
+        'name' => 'array', 
     ];
 
     // Quan hệ với menus
