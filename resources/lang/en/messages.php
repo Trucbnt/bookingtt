@@ -56,7 +56,8 @@ return [
         ],
         'menu' => [
             'adminDashboard' => 'Admin Dashboard',
-            'menu' => 'Menu'
+            'menu' => 'Menu',
+            'promotion' => 'Promotion'
         ],
         'front_end' => [
             'navbar' => [
@@ -205,9 +206,9 @@ return [
             'address_placeholer' => 'Please fill in your address',
             'phone' => 'Phone',
             'phone_placeholer' => 'Please fill in your phone',
-            'opening_hours' => 'Opening_hours',
+            'opening_hours' => 'Opening hours',
             'opening_hours_placeholer' => 'Please fill in your opening hours',
-            'closing_time' => 'Closing_time',
+            'closing_time' => 'Closing time',
             'closing_time_placeholer' => 'Please fill in your closing time',
             'rating' => 'Rating',
             'rating_placeholer' => 'Please fill in your rating',
@@ -221,18 +222,30 @@ return [
     ],
 
     'menu' => [
-        'title' => 'Menu',
+        'status' => [
+            'active' => 'Active',
+            'inactive' => 'Inactive',
+        ],
+        'title' => 'Food',
         "filters" => [
             "start_price" => "Price to",
             "end_price" => "Price from"
         ],
         'fields' => [
-            'name' => 'Menu Name',
-            'slug' => 'Menu Slug',
-            'description' => 'Menu Description',
-            'price' => 'Menu Price ( USD )',
-            'category_id' => 'Category ID',
-            'image_url' => 'Menu Image',
+            "name" => "Name food" ,
+            'name_vi' => 'Food name (Vietnamese)',
+            'name_en' => 'Food name (English)',
+            'slug' => 'Food slug',
+            'description_vi' => 'Food description (Vietnamese)',
+            'description_en' => 'Food description (English)',
+            'price_vi' => 'Food price (Vietnamese)',
+            'price_en' => 'Food price (English)',
+            'price' => "Price",
+            'status' => 'Status',
+            'status_active' => 'Active',
+            'status_inactive' => 'Inactive',
+            'category_id' => 'Category',
+            'image_url' => 'Food image',
         ],
         'index' => [
             'route' => 'admin.menu.index',
@@ -278,6 +291,39 @@ return [
         ],
         'destroy' => [
             'route' => 'admin.permission.destroy',
+        ],
+    ],
+    'table' => [
+        'title' => 'Table',
+        'fields' => [
+            'id' => 'ID',
+            'name' => 'Table Name',
+            'name_vi' => 'Table Name VI',
+            'name_en' => 'Table Name EN',
+            'capacity' => 'Capacity',
+            'status' => 'Status',
+            'description' => 'Description',
+            'description_vi' => 'Description VI',
+            'description_en' => 'Description EN',
+            'position' => 'Position',
+        ],
+        'index' => [
+            'route' => 'admin.table.index',
+        ],
+        'create' => [
+            'route' => 'admin.table.create',
+        ],
+        'store' => [
+            'route' => 'admin.table.store',
+        ],
+        'edit' => [
+            'route' => 'admin.table.edit',
+        ],
+        'update' => [
+            'route' => 'admin.table.update',
+        ],
+        'destroy' => [
+            'route' => 'admin.table.destroy',
         ],
     ],
     // Fields for Review
@@ -342,32 +388,6 @@ return [
             'route' => 'admin.blog.destroy',
         ],
     ],
-    // Fields for Blog
-    'blog' => [
-        'title' => 'Blog',
-        'fields' => [
-            'name' => 'Blog Name',
-            'accountsCount' => 'Blogs Count',
-        ],
-        'index' => [
-            'route' => 'admin.blog.index',
-        ],
-        'create' => [
-            'route' => 'admin.blog.create',
-        ],
-        'store' => [
-            'route' => 'admin.blog.store',
-        ],
-        'edit' => [
-            'route' => 'admin.blog.edit',
-        ],
-        'update' => [
-            'route' => 'admin.blog.update',
-        ],
-        'destroy' => [
-            'route' => 'admin.blog.destroy',
-        ],
-    ],
     // Fields for Role
     'role' => [
         'title' => 'Role',
@@ -397,6 +417,63 @@ return [
         ],
         'destroy' => [
             'route' => 'admin.role.destroy',
+        ],
+    ],
+    'promotion' => [
+        'title' => 'Promotion',
+        'titleFormR' => 'Detailed Information',
+        'titleFormL' => 'General Information',
+        'fields' => [
+            'name' => 'Name',
+            'accountsCount' => 'Promotions Count',
+            'code' => 'Code',
+            'description' => 'Description',
+            'type' => 'Type',
+            'discount' => 'Discount',
+            'minOrder' => 'Min Value Order',
+            'maxDiscount' => 'Max Discount',
+            'startDate' => 'Start Date',
+            'endDate' => 'End Date',
+            'total' => 'Total',
+            'isActive' => 'Status'
+        ],
+        'system' => [
+            'random' => 'random',
+            'warning' => 'You can only make edits to the description, start date and end date',
+            'cardTop' => 'General information',
+            'vn' => 'Vietnamese',
+            'en' => 'English',
+            'cardBody' => 'Public information',
+            'times' => 'times',
+            'noTime' => 'There is no end date',
+            'cardBot' => 'Detailed information',
+
+        ],
+        'type' => [
+            'percentage' => '%',
+            'fixed' => 'Cash',
+        ],
+        'status' => [
+            '1' => 'Active',
+            '2' => 'Unactive'
+        ],
+        'index' => [
+            'route' => 'admin.promotion.index',
+        ],
+        'create' => [
+            'route' => 'admin.promotion.create',
+        ],
+        'store' => [
+            'route' => 'admin.promotion.store',
+        ],
+        'edit' => [
+            'route' => 'admin.promotion.edit',
+        ],
+        'update' => [
+            'route' => 'admin.promotion.update',
+        ],
+        'destroy' => [
+            'route' => 'admin.promotion.destroy',
         ],
     ],
     // Fields for Account

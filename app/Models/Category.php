@@ -20,7 +20,6 @@ class Category extends Model
     protected $casts = [
         'name' => 'array', 
     ];
-
     // Quan hệ với menus
 
     public function menus(): HasMany

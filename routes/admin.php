@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Backend\Promotion\PromotionController;
+use App\Http\Controllers\Backend\TableController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Backend\Account\AdminController;
@@ -78,6 +80,14 @@ Route::middleware(['auth', 'role:1, 2'])->group(function () {
             Route::delete('{permission}/destroy', [PermissionController::class, 'destroy'])->where('permission', '[0-9]+')->name('admin.permission.destroy');
         });
 
+        Route::prefix('promotion')->group(function () {
+            Route::get('index', [PromotionController::class, 'index'])->name('admin.promotion.index');
+            Route::get('create', [PromotionController::class, 'create'])->name('admin.promotion.create');
+            Route::post('store', [PromotionController::class, 'store'])->name('admin.promotion.store');
+            Route::get('{promotion}/edit', [PromotionController::class, 'edit'])->where('promotion', '[0-9]+')->name('admin.promotion.edit');
+            Route::put('{promotion}/update', [PromotionController::class, 'update'])->where('promotion', '[0-9]+')->name('admin.promotion.update');
+            Route::delete('{promotion}/destroy', [PromotionController::class, 'destroy'])->where('promotion', '[0-9]+')->name('admin.promotion.destroy');
+        });
 
         Route::prefix('blog')->group(function () {
             Route::get('index', [BlogController::class, 'index'])->name('admin.blog.index');
@@ -107,19 +117,32 @@ Route::middleware(['auth', 'role:1, 2'])->group(function () {
             Route::delete('{id}/destroy', [CategoryController::class, 'destroy'])->where('id', '[0-9]+')->name('admin.category.destroy');
         });
 
+        Route::prefix('table')->group(function () {
+            Route::get('index', [TableController::class, 'index'])->name('admin.table.index');
+            Route::get('create', [TableController::class, 'create'])->name('admin.table.create');
+            Route::post('store', [TableController::class, 'store'])->name('admin.table.store');
+            Route::get('{id}/edit', [TableController::class, 'edit'])->where('id', '[0-9]+')->name('admin.table.edit');
+            Route::put('{id}/update', [TableController::class, 'update'])->where('id', '[0-9]+')->name('admin.table.update');
+            Route::delete('{id}/destroy', [TableController::class, 'destroy'])->where('id', '[0-9]+')->name('admin.table.destroy');
+        });
+
         Route::prefix('menu')->group(function () {
             Route::get('index', [MenuController::class, 'index'])->name('admin.menu.index');
             Route::get('create', [MenuController::class, 'create'])->name('admin.menu.create');
-            Route::post('store', [MenuController::class, 'store'])->name('admin.menu.store')->middleware("currency");
+            Route::post('store', [MenuController::class, 'store'])->name('admin.menu.store');
             Route::get('{id}/edit', [MenuController::class, 'edit'])->where('id', '[0-9]+')->name('admin.menu.edit');
-            Route::put('{id}/update', [MenuController::class, 'update'])->where('id', '[0-9]+')->name('admin.menu.update')->middleware("currency");
+            Route::put('{id}/update', [MenuController::class, 'update'])->where('id', '[0-9]+')->name('admin.menu.update');
             Route::delete('{id}/destroy', [MenuController::class, 'destroy'])->where('id', '[0-9]+')->name('admin.menu.destroy');
         });
 
+        Route::prefix('chat')->group(function () {
+            Route::get('index', [NotificationController::class, 'index'])->name('admin.chat.index');
+        });
 
         Route::prefix('notification')->group(function () {
             Route::get('index', [NotificationController::class, 'index'])->name('admin.notification.index');
         });
+
         Route::prefix('restaurant')->group(function(){
             Route::get('index', [RestaurantController::class, 'index' ])->name('admin.restaurant');
         });
