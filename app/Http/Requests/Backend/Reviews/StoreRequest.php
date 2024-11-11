@@ -1,9 +1,13 @@
 <?php
 
-namespace App\Http\Requests\Frontend\Reviews;
+namespace App\Http\Requests\Backend\Reviews;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage; // Thêm dòng này ở đầu file nếu chưa có
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class StoreRequest extends FormRequest
 {
@@ -14,7 +18,7 @@ class StoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return true; // Điều chỉnh nếu cần kiểm tra quyền truy cập
     }
 
     /**
@@ -25,20 +29,49 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'rating' => 'required|integer|min:1|max:5',
-            'comment' => 'nullable|string|max:1000',
-            'invoiceCode' => [
-                'required',
-                'string',
-                function ($attribute, $value, $fail) {
-                    $user = Auth::user();
-                    $invoiceExists = $user->invoices()->where('id', $value)->exists();
-    
-                    if (!$invoiceExists) {
-                        $fail(__('messages.system.invoice_error'));
-                    }
-                }
-            ],
+            'title' => 'required|string|max:255|unique:blogs', // Tiêu đề bài viết
+            'content' => 'required|string', // Nội dung bài viết
+            'slug' => 'nullable|string|max:255|unique:blogs', // Đường dẫn thân thiện, có thể null
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Hình ảnh bài viết
         ];
-    }    
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        // Check if an image was uploaded
+        if ($this->hasFile('image')) {
+            $image = $this->file('image');
+
+            // Ensure the admin is authenticated
+            if (Auth::check()) {
+                $adminId = Auth::user()->id; // Get the authenticated admin ID
+
+                // Generate a unique file name
+                $fileName = $this->generateUniqueFileName($image);
+
+                // Define the directory path
+                $directory = "temp_blog_images/{$adminId}";
+                $filePath = "{$directory}/{$fileName}";
+
+                // Store the file in the temp_images folder
+                Storage::put($filePath, file_get_contents($image->getRealPath()));
+
+                // Save the file path in session
+                session(['image_blog_temp' => $filePath]);
+            }
+        }
+
+        // Redirect back with validation errors and input
+        throw new HttpResponseException(
+            redirect()->back()->withErrors($validator)->withInput()
+        );
+    }
+
+    private function generateUniqueFileName(UploadedFile $file): string
+    {
+        $timestamp = time();
+        $extension = $file->getClientOriginalExtension();
+        $fileName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+        return "{$fileName}_{$timestamp}.{$extension}";
+    }
 }

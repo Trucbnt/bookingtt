@@ -19,7 +19,7 @@ return new class extends Migration
             $table->json('payment_method');  // Phương thức thanh toán hỗ trợ đa ngôn ngữ
             $table->enum('status', ['unpaid', 'paid', 'canceled'])->default('unpaid');  // Trạng thái hóa đơn
             $table->timestamps();
-        });
+        });        
     }
 
     /**

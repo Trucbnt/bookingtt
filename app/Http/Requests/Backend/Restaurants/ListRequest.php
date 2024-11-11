@@ -1,10 +1,14 @@
 <?php
+
 namespace App\Http\Requests\BackEnd\Restaurants;
+
 use App\Http\Requests\TraitRequest;
 use Illuminate\Foundation\Http\FormRequest;
+
 class ListRequest extends FormRequest
 {
     use TraitRequest;
+
     /**
      * Prepare the data for validation.
      *
@@ -17,6 +21,7 @@ class ListRequest extends FormRequest
     {
         $this->prepareForPagination();
     }
+
     /**
      * Get the validation rules that apply to the request.
      *

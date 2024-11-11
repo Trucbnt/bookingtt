@@ -8,7 +8,6 @@ interface NotificationServiceInterface
      * Get a paginated list of Notifications with optional filters.
      *
      * @param array $filters
-     * @param int $perPage
      * @return mixed
      */
     public function getAllNotifications(array $filters = []);

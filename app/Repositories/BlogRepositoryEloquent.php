@@ -41,7 +41,7 @@ class BlogRepositoryEloquent extends BaseRepository implements BlogRepositoryInt
         // Apply search filters
         if (!empty($filters['search'])) {
             $query->where(function ($q) use ($filters) {
-                $q->where('name', 'like', '%' . $filters['search'] . '%');
+                $q->where('title', 'like', '%' . $filters['search'] . '%');
             });
         }
 
@@ -52,6 +52,7 @@ class BlogRepositoryEloquent extends BaseRepository implements BlogRepositoryInt
         if (!empty($filters['end_date'])) {
             $query->whereDate('created_at', '<=', $filters['end_date']);
         }
+
         if (!empty($filters['status'])) {
             $query->where('status', $filters['status']);
         }

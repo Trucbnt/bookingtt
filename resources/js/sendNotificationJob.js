@@ -2,11 +2,14 @@ import './bootstrap';
 
 window.Echo.channel('notifications')
     .listen('NotificationEvent', (e) => {
+
         const $dropdownMenu = $('#notificationMenu');
+
         // Check if the notification dropdown is open
         if ($dropdownMenu.hasClass('show')) {
             const dataNotification = e.dataNotification; // Assuming this is where your data comes from
             console.log(dataNotification);
+
             // Ensure dataNotification is defined before using it
             if (dataNotification) {
                 alert(123);
@@ -37,6 +40,7 @@ window.Echo.channel('notifications')
                         seconds: 1
                     },
                     ];
+
                     for (const interval of intervals) {
                         const count = Math.floor(seconds / interval.seconds);
                         if (count > 0) {
@@ -63,14 +67,17 @@ window.Echo.channel('notifications')
                         </div>
                     </div>
                 </a>`;
+
                 // Prepend to notifications container to move it to the top
                 $('#allNotification').prepend(notificationItemNew);
             } else {
                 console.error('dataNotification is not defined.');
             }
         }
+
         // Add flash class to the notification icon
         $('#notificationDropdown').addClass('flash');
+
         // Fetch new notification count
         $.ajax({
             url: '/count-new-notifications-endpoint',
@@ -89,5 +96,3 @@ window.Echo.channel('notifications')
             $('#notificationDropdown').removeClass('flash');
         }, 1500); // Adjust the timeout to match the animation duration
     });
-
-

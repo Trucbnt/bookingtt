@@ -1,9 +1,8 @@
-<table class="table mb-0 checkbox-all" id="datatable_1">
+<table border="1" class="table mb-0 checkbox-all" id="datatable_1">
     <thead class="table-light">
         <tr>
             <th style="width: 16px;">
                 <div class="form-check mb-0 ms-n1">
-                    <input type="checkbox" class="form-check-input" id="select-all">
                 </div>
             </th>
             <th class="ps-0">{{ __('messages.account.fields.full_name') }}</th>
@@ -22,8 +21,6 @@
                 <tr>
                     <td style="width: 16px;">
                         <div class="form-check">
-                            <input type="checkbox" class="form-check-input" value="{{ $data->id }}" name="check"
-                                id="customCheck{{ $data->id }}">
                         </div>
                     </td>
                     <td class="ps-0">
@@ -34,7 +31,7 @@
                     </td>
                     <td>{{ $data->email ?? __('messages.system.no_data_available') }}</td>
                     <td>{{ $data->phone ?? __('messages.system.no_data_available') }}</td>
-                    <td>{{ $data->birthday ?? __('messages.system.no_data_available') }}</td>
+                    <td>{{ $data->birthday  ?? __('messages.system.no_data_available') }}</td>
                     <td>{{ $data->address ?? __('messages.system.no_data_available') }}</td>
                     <td>
                         @php
@@ -44,8 +41,7 @@
 
                         <select name="status" class="form-select status" data-account-id="{{ $data->id }}">
                             @foreach ($statuses as $key => $option)
-                                <option value="{{ $key }}" @selected($status == $key)
-                                    @selected($data->status == $key)>
+                                <option value="{{ $key }}" @selected($status == $key) @selected($data->status == $key)>
                                     {{ $option }}
                                 </option>
                             @endforeach
@@ -56,16 +52,15 @@
                     </td>
                     <td class="text-end">
                         <div class="d-flex align-items-center">
-                            <a href="{{ route(__('messages.account.' . $object . '.edit.route'), $data->id) }}"
-                                class="me-2">
+                            <a href="{{ route(__('messages.account.' . $object . '.edit.route'), $data->id) }}" class="me-2">
                                 <i class="fas fa-edit btn btn-primary btn-sm"></i>
                             </a>
                             <form action="{{ route(__('messages.account.' . $object . '.destroy.route'), $data->id) }}"
                                 method="post" class="d-inline-block" id="myForm_{{ $data->id }}">
                                 @csrf
                                 @method('DELETE')
-                                <button onclick="executeExample('handleDismiss', 'myForm_{{ $data->id }}')"
-                                    type="button" class="btn btn-danger btn-sm">
+                                <button onclick="executeExample('handleDismiss', 'myForm_{{ $data->id }}')" type="button"
+                                    class="btn btn-danger btn-sm">
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
                             </form>

@@ -1,7 +1,11 @@
 <?php 
+
 namespace App\Interfaces\Repositories;
+
 use prettus\Repository\Contracts\RepositoryInterface;
+
 interface RestaurantRepositoryInterface extends RepositoryInterface
+
 {
     /**
      * Get a paginated list of Reviews with optional search functionality.
@@ -11,6 +15,7 @@ interface RestaurantRepositoryInterface extends RepositoryInterface
      * @return \Illuminate\Pagination\LengthAwarePaginator
      */
     public function getAllRestaurant(array $filters = [], $perPage = 5);
+
     /**
      * Get restaurant details by ID.
      *
@@ -18,6 +23,7 @@ interface RestaurantRepositoryInterface extends RepositoryInterface
      * @return mixed
      */
     public function getRestaurantDetail(int $id);
+
     /**
      *  Update an restaurant by ID with new data.
      * 
@@ -25,5 +31,6 @@ interface RestaurantRepositoryInterface extends RepositoryInterface
      *  @param array $params
      *  @return mixed
     */
+
     public function updateRestaurant(int $id, array $params);
 }

@@ -20,7 +20,7 @@ return new class extends Migration {
             $table->string('closing_time', 50)->nullable();
             $table->decimal('rating', 2, 1)->default(0.0);  // Đánh giá trung bình
             $table->json('description')->nullable(); // Mô tả nhà hàng
-            $table->text('google_map_link')->nullable(); // Mô tả nhà hàng
+            $table->text('google_map_link')->nullable();
             $table->string('image')->nullable(); // Hình ảnh đại diện
             $table->timestamps();
         });

@@ -22,12 +22,16 @@
                         </div>
                     </div>
                 </div><!--end chat-search-->
+
                 <div class="chat-body-left px-3" data-simplebar>
                     <div class="tab-content" id="pills-tabContent">
+
                         <div class="tab-pane fade show active" id="messages_chat"></div><!--end general chat-->
+
                     </div><!--end tab-content-->
                 </div>
             </div><!--end chat-box-left -->
+
             <div class="chat-box-right">
                 <div class="p-3 d-flex justify-content-between card-bg rounded">
                     <a href="#" class="d-flex align-self-center">
@@ -101,6 +105,7 @@
         </div> <!-- end col -->
     </div><!-- end row -->
 </div><!-- container -->
+
 <!--Start Rightbar-->
 <!--Start Rightbar/offcanvas-->
 <div class="offcanvas offcanvas-end" tabindex="-1" id="Appearance" aria-labelledby="AppearanceLabel">
@@ -142,6 +147,7 @@
         </div><!--end /div-->
     </div><!--end offcanvas-body-->
 </div>
+
 <script>
     function loadUsersWithMessages() {
         $.ajax({
@@ -185,6 +191,7 @@
             }
         });
     }
+
     // Gọi hàm khi trang được tải
     document.addEventListener('DOMContentLoaded', loadUsersWithMessages);
 </script>

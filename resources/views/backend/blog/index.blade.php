@@ -21,6 +21,7 @@
         </div>
     </div>
 </div>
+
 @push('script')
 <script>
     var updateStatusUrl = '{{ route("admin.blog.updateStatus") }}';

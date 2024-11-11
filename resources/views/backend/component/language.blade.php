@@ -1,6 +1,6 @@
 <li class="dropdown">
     <a class="nav-link dropdown-toggle arrow-none nav-icon" data-bs-toggle="dropdown" href="#" role="button"
-    aria-haspopup="false" aria-expanded="false">
+        aria-haspopup="false" aria-expanded="false">
         <span class="fi {{ App::getLocale() === 'vi' ? 'fi-vn' : 'fi-us' }}"></span>
     </a>
     <div class="dropdown-menu">
@@ -19,18 +19,18 @@
         const dropdownItems = document.querySelectorAll('.set-language');
 
         dropdownItems.forEach(item => {
-            item.addEventListener('click', function() {
+            item.addEventListener('click', function () {
                 const language = this.getAttribute('data-language');
 
-                 // Gửi yêu cầu AJAX để thay đổi ngôn ngữ
+                // Gửi yêu cầu AJAX để thay đổi ngôn ngữ
                 changeLanguage(language);
             });
         });
     });
 
     function changeLanguage(language) {
-           // Sử dụng fetch API để gửi yêu cầu AJAX
-           fetch('/change-language', {
+        // Sử dụng fetch API để gửi yêu cầu AJAX
+        fetch('/change-language', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -54,5 +54,4 @@
                 console.error('Error:', error);
             });
     }
-
 </script>

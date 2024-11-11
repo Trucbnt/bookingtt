@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Services\ImageService;
 use Illuminate\Support\Facades\Storage;
-use App\Http\Requests\BackEnd\Accounts\UpdateRequest as AccountUpdateRequest;
 
 class ProfileController extends Controller
 {
@@ -27,7 +26,7 @@ class ProfileController extends Controller
      * Update the account's profile image.
      *
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\JsonResponse
      */
     public function updateProfileImage(Request $request)
     {
@@ -59,17 +58,20 @@ class ProfileController extends Controller
         }
     }
 
-    public function updateProfile(Request  $request)
+    public function updateProfile(Request $request)
     {
+        // Validate input data
         $request->validate([
             'full_name' => 'required|string|max:255',
             'phone' => ['required', 'regex:/^[0-9\-\+\(\)\s]+$/', 'max:15'], // Chỉ cho phép các ký tự số, dấu cộng, dấu gạch, dấu ngoặc
             'email' => 'required|email|max:255',
             'address' => 'nullable|string|max:255',
         ]);
+
         // Update user profile if no validation errors
         $user = Auth::user();
         $user->update($request->all());
+
         // Return success response
         return response()->json(['success' => 'Cập nhật thông tin thành công!']);
     }

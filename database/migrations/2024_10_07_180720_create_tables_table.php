@@ -19,7 +19,7 @@ return new class extends Migration
             $table->text('description')->nullable(); // Mô tả bàn hỗ trợ đa ngôn ngữ
             $table->string('position'); // Vị trí bàn (ví dụ: A1, B3, C2... tương tự như bàn cờ vua)
             $table->timestamps(); // Thời gian tạo và cập nhật
-        });
+        });        
     }
 
     /**

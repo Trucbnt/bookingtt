@@ -1,8 +1,10 @@
 $(document).ready(function () {
     $(document).on('change', '.status', function () {
         var select = $(this);
+
         select.val() == "active" ? select.closest('tr').removeClass("bg-secondary") : select.closest('tr').addClass("bg-secondary");
         var selectedValue = select.val();
+
         var categoryId = select.data('category-id'); // This should get the correct account ID
         
         var data = {
@@ -10,6 +12,7 @@ $(document).ready(function () {
             id: categoryId,        
             status: selectedValue
         };
+
         $.ajax({
             url: updateStatusUrl, // Now pointing to the correct URL
             type: 'POST',

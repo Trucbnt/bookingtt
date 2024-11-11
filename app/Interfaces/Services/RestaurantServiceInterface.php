@@ -1,5 +1,7 @@
 <?php 
+
 namespace App\Interfaces\Services;
+
 interface RestaurantServiceInterface
 {
     /**
@@ -11,6 +13,7 @@ interface RestaurantServiceInterface
      * @return mixed
      */
     public function getAllRestaurant(array $filters = [], int $perPage = 5);
+
     /**
      * Get account details by ID.
      *
@@ -18,6 +21,7 @@ interface RestaurantServiceInterface
      * @return mixed
      */
     public function getRestaurantDetail(int $id);
+
     /**
      * Update an restaurant by ID
      * 

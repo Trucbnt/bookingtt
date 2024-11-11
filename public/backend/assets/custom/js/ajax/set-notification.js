@@ -12,8 +12,11 @@
 //             }
 //         });
 //     }
+
 //     var notificationId = $(this).data('id');
+
 //     $('#messageModal' + notificationId).modal('show');
+
 //     $.ajax({
 //         url: '/notifications/' + notificationId + '/read',
 //         type: 'POST',
@@ -25,11 +28,15 @@
 //                 var $row = $('#tr-notification-id-' + notificationId);
                 
 //                 var $rowMenu = $('#notification-id-' + notificationId);
+
 //                 $('#notificationTableBody').append($row);
 //                 $('#notificationTableBody').append($rowMenu);
+
 //                 $row.removeClass('bg-warning bg-opacity-50');
 //                 $rowMenu.removeClass('bg-warning bg-opacity-50');
+
 //                 $row.find('.read-notification').text('View Message');
+
 //                 updateNewNotificationCount();
 //             }
 //         },
@@ -38,7 +45,9 @@
 //         }
 //     });
 // });
+
 // // $(document).ready(function () {
+
 // //     // // Function to update the notification count
 // //     // function updateNewNotificationCount() {
 // //     //     $.ajax({
@@ -56,10 +65,13 @@
 // //     //         }
 // //     //     });
 // //     // }
+
 // //     // // Handle notification click event to show modal and mark as read
 // //     // $(document).on('click', '.notification-item', function () {
 // //     //     var notificationId = $(this).data('id');
+
 // //     //     $('#messageModal' + notificationId).modal('show');
+
 // //     //     $.ajax({
 // //     //         url: '/notifications/' + notificationId + '/read',
 // //     //         type: 'POST',
@@ -70,10 +82,12 @@
 // //     //             if (response.success) {
 // //     //                 alert(123);
 // //     //                 var $row = $('#tr-notification-id-' + notificationId);
+
 // //     //                 // Move the notification row in the table and mark it as read
 // //     //                 $('#notificationTableBody').append($row);
 // //     //                 $row.removeClass('bg-warning bg-opacity-50');
 // //     //                 $row.find('.read-notification').text('View Message');
+
 // //     //                 // Update notification count
 // //     //                 updateNewNotificationCount();
 // //     //             }
@@ -83,6 +97,7 @@
 // //     //         }
 // //     //     });
 // //     // });
+
 // //     // Listen for notification events and update the count
 // //     // window.Echo.channel('reviews')
 // //     //     .listen('NotificationEvent', (e) => {
