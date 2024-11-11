@@ -4,10 +4,12 @@
         <i class="icofont-bell-alt"></i>
         <span class="alert-badge" id="countNotificationNoRead">{{ $unreadNotificationCount }}</span>
     </a>
+
     <style>
         .nav-link {
             position: relative;
         }
+
         .alert-badge {
             position: absolute;
             bottom: -10px;
@@ -26,24 +28,29 @@
                 0 0 15px rgba(255, 0, 0, 0.4);
             transition: box-shadow 0.3s ease-in-out;
         }
+
         @keyframes flash {
+
             0%,
             100% {
                 transform: scale(1);
                 background-color: transparent;
                 /* Original color */
             }
+
             50% {
                 transform: scale(1.2);
                 background-color: green;
                 /* Change to green during the flash */
             }
         }
+
         .flash {
             animation: flash 0.5s ease-in-out 3;
             /* Flash 3 times */
         }
     </style>
+
     <div class="dropdown-menu stop dropdown-menu-end dropdown-lg py-0" id="notificationMenu">
         <!-- Dropdown content will be dynamically populated here -->
         <h5 class="dropdown-item-text m-0 py-3 d-flex justify-content-between align-items-center">
@@ -64,26 +71,31 @@
         </a>
     </div>
 </li>
+
 <script>
     function handleDropdownClick(element) {
         // Assume this is your JSON string
         const jsonStringTitle = element.getAttribute('data-title');
         
         const jsonStringMessage = element.getAttribute('data-message-full');
+
         // If it's a string, parse it
         const jsonData = JSON.parse(jsonStringMessage); // Skip this step if you already have a JavaScript object
+
         // Now, you can access each property
         const data = jsonData.data;
         const type = jsonData.type;
         const title = jsonStringTitle;
         const message = jsonData.message;
         const createdAt = jsonData.created_at;
+
         // Display each property in the console or use them in your UI
         console.log("Data:", data);
         console.log("Type:", type);
         console.log("Title:", title);
         console.log("Message:", message);
         console.log("Created At:", createdAt);
+
         // Assuming you want to display them in a modal
         document.getElementById('modalTitle').innerText = `Title: ${title}`;
         document.getElementById('modalType').innerText = `Type: ${type}`;
@@ -92,6 +104,7 @@
         document.getElementById('modalCreatedAt').innerText = `Created At: ${createdAt}`;
     }
 </script>
+
 <script>
     $(document).ready(function() {
         // Function to calculate time since the notification was created
@@ -122,6 +135,7 @@
                     seconds: 1
                 },
             ];
+
             for (const interval of intervals) {
                 const count = Math.floor(seconds / interval.seconds);
                 if (count > 0) {
@@ -130,8 +144,10 @@
             }
             return 'Just now';
         }
+
         $('.nav-link.dropdown-toggle').on('click', function() {
             const $dropdownMenu = $('#notificationMenu');
+
             // Check if the dropdown is already open
             if ($dropdownMenu.hasClass('show')) {
                 // Dropdown is closed, so trigger the AJAX request
@@ -140,16 +156,20 @@
                     type: 'GET',
                     dataType: 'json',
                     success: function(data) {
+
                         // Clear the previous notifications
                         $('#allNotification').empty();
+
                         // Update the notifications count using the total property
                         const notificationCount = data.total; // Use total from the response
                         $('.dropdown-item-text').html('Notifications (' + notificationCount + ') <a href="#" class="badge text-body-tertiary badge-pill"><i class="iconoir-plus-circle fs-4"></i></a>'); // Update the badge with the count
+
                         // Check if notifications is an array and iterate
                         if (Array.isArray(data.notifications)) {
                             data.notifications.forEach(function(notification) {
                                 // Parse the message to an object
                                 const messageData = JSON.parse(notification.message);
+
                                 // Create the notification HTML with relative time
                                 const notificationItem = `
                             <a href="#" onclick="handleDropdownClick(this)" class="dropdown-item py-3 ${notification.user_id == null ? 'bg-warning bg-opacity-50' : ''}" 
@@ -168,6 +188,7 @@
                                     </div>
                                 </div>
                             </a>`;
+
                                 // Append to notifications container
                                 $('#allNotification').append(notificationItem);
                             });

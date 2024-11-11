@@ -8,9 +8,11 @@
             'totalRecords' => $reviewTotalRecords,
             'createRoute' => null // Corrected the route syntax
             ])
+
             <div class="card-body pt-0">
                 @include('backend.component.filter')
             </div>
+
             <div class="card-body pt-0">
                 <div class="table-responsive">
                     @include('backend.' . $object . '.component.table.table')

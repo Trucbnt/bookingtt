@@ -11,14 +11,14 @@ class Notification extends Model
 
     protected $fillable = ['title', 'message', 'idUser'];
 
-    // Nếu cần liên kết với người dùng
     public function user()
     {
         return $this->belongsTo(User::class, 'idUser'); // Change to belongsTo
     }
+
     public function users()
     {
         return $this->belongsToMany(User::class, 'notification_user')
                     ->withTimestamps();
-    }   
+    }      
 }

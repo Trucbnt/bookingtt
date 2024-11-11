@@ -9,6 +9,7 @@ $(document).ready(function () {
             id: blogId,        
             status: selectedValue
         };
+
         $.ajax({
             url: updateStatusUrl, // Now pointing to the correct URL
             type: 'POST',

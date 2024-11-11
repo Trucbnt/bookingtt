@@ -1,13 +1,19 @@
 <?php 
+
 namespace App\Http\Controllers\Backend;
+
 use App\Http\Controllers\Controller;
 use App\Interfaces\Repositories\PermissionRepositoryInterface as PermissionRepository;
 use App\Interfaces\Repositories\RestaurantRepositoryInterface;
 use App\Interfaces\Services\RestaurantServiceInterface;
 use Illuminate\Support\Facades\Storage;
+
 use Illuminate\Support\Facades\Auth;
+
 use App\Traits\HandleExceptionTrait;
+
 // Requests
+
 use App\Http\Requests\BackEnd\Restaurants\ListRequest as  ListRestaurantRequest;
 use App\Http\Requests\BackEnd\Restaurants\UpdateRequest as  UpdateRestaurantRequest;
 use App\Models\Restaurant;
@@ -20,20 +26,25 @@ class RestaurantController extends Controller
     protected  $restaurantRepository;
     protected   $permissionRepository;
     protected   $imageService;
+
     const PATH_VIEW = 'backend.restaurant.';
     const PER_PAGE_DEFAULT = 5;
     const OBJECT = 'restaurant';
+
+
     public function __construct(
         RestaurantServiceInterface $restaurantService,
         RestaurantRepositoryInterface $restaurantRepository,
         PermissionRepository $permissionRepository,
         ImageService $imageService
+
     ) {
         $this->restaurantService = $restaurantService;
         $this->restaurantRepository = $restaurantRepository;
         $this->permissionRepository = $permissionRepository;
         $this->imageService = $imageService;
     }
+
 /**
      * Display the list of roles.
      *
@@ -70,21 +81,27 @@ class RestaurantController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
+
     public function updateRestaurantImage(Request  $request)
     {
         $request->validate(
             ['restaurant_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',]
         );
         $data = $this->restaurantRepository->first();
+
+
         try {
             $newImagePath = $this->imageService->updateImage(
                 'restaurant_image',
                 $request->file('restaurant_image'),
                 $data->image
+
             );
+
             $data->image = $newImagePath;
             $data->save();
         
+
             return response()->json([
                 'success' => true,
                 'new_image_url' => Storage::url($newImagePath),
@@ -92,7 +109,9 @@ class RestaurantController extends Controller
         } catch (\Exception $e) {
             return  response()->json(['success' => false, 'message' => 'Failed to update restaurant image']);
         }
+
     }
+
      /**
      * Handle the update of an admin.
      *
@@ -100,6 +119,7 @@ class RestaurantController extends Controller
      * @param UpdateRestaurantRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
+
      public function updateRestaurant($id, Request $request)
 {
     try {
@@ -115,20 +135,29 @@ class RestaurantController extends Controller
             'description.vi' => 'required|string',  
             'description.en' => 'required|string',  
         ]);
+
         // Xử lý mô tả dưới dạng JSON
         $description = json_encode([
             'vi' => $validatedData['description']['vi'],
             'en' => $validatedData['description']['en'] ?? '', // Nếu không nhập tiếng Anh, lưu chuỗi rỗng
         ]);
+
         // Cập nhật thông tin nhà hàng
         $validatedData['description'] = $description;
         $this->restaurantService->updateRestaurant($id, $validatedData);
+
         return response()->json(['message' => 'Restaurant updated successfully'], 200);
+
     } catch (\Illuminate\Validation\ValidationException $e) {
         return response()->json(['error' => $e->errors()], 422);
     } catch (\Exception $e) {
         return response()->json(['error' => $e->getMessage()], 500);
     }
 }
+
      
+
+
+
 }
+

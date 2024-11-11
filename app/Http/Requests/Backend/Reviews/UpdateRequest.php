@@ -1,11 +1,14 @@
 <?php
+
 namespace App\Http\Requests\Backend\Reviews;
+
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage; // Thêm dòng này ở đầu file nếu chưa có
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
+
 class UpdateRequest extends FormRequest
 {
     /**
@@ -17,6 +20,7 @@ class UpdateRequest extends FormRequest
     {
         return true; // Thay đổi nếu cần kiểm tra quyền truy cập
     }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -31,30 +35,38 @@ class UpdateRequest extends FormRequest
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Hình ảnh bài viết
         ];
     }
+
     protected function failedValidation(Validator $validator)
     {
         // Check if an image was uploaded
         if ($this->hasFile('image')) {
             $image = $this->file('image');
+
             // Ensure the admin is authenticated
             if (Auth::check()) {
                 $adminId = Auth::user()->id; // Get the authenticated admin ID
+
                 // Generate a unique file name
                 $fileName = $this->generateUniqueFileName($image);
+
                 // Define the directory path
                 $directory = "temp_blog_images/{$adminId}";
                 $filePath = "{$directory}/{$fileName}";
+
                 // Store the file in the temp_images folder
                 Storage::put($filePath, file_get_contents($image->getRealPath()));
+
                 // Save the file path in session
                 session(['image_blog_temp' => $filePath]);
             }
         }
+
         // Redirect back with validation errors and input
         throw new HttpResponseException(
             redirect()->back()->withErrors($validator)->withInput()
         );
     }
+
     private function generateUniqueFileName(UploadedFile $file): string
     {
         $timestamp = time();

@@ -35,7 +35,7 @@ class NotificationService extends BaseService implements NotificationServiceInte
     {
         try {
             // Retrieve Categories from the repository using filters and pagination
-            return $this->notificationRepository->getAllNotifications($filters,);
+            return $this->notificationRepository->getAllNotifications($filters);
         } catch (Exception $e) {
             // Handle any exceptions that occur while retrieving Categories
             throw new Exception('Unable to retrieve Notification list: ' . $e->getMessage());
@@ -114,6 +114,7 @@ class NotificationService extends BaseService implements NotificationServiceInte
             throw new Exception('Unable to delete notification: ' . $e->getMessage());
         }
     }
+
     public function countUnreadNotifications(): int
     {
         if (Auth::check()) {

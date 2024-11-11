@@ -21,6 +21,7 @@
         </div>
     </div>
 </div>
+
 <div class="col-12 col-md-auto mb-2">
     <!-- Keep this column for status dropdown -->
     @php

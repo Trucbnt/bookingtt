@@ -17,7 +17,6 @@ return new class extends Migration {
             $table->json('description')->nullable(); // Lưu mô tả sản phẩm theo ngôn ngữ
             $table->json('price'); // Lưu giá theo nhiều ngôn ngữ hoặc đơn vị tiền tệ
             $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
-
             $table->string('image_url')->nullable();
             $table->enum('status', ['active', 'inactive']);
             $table->timestamps();

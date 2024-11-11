@@ -1,4 +1,4 @@
-<div class="col-12 col-md mb-2">
+<div class="col-12 col-md mb-2 ">
     <div class="row">
         <div class="col-2">
             <label for="start_date">{{ __('messages.system.start') }}</label> <!-- Thêm id cho label -->
@@ -36,7 +36,6 @@
         @endforeach
     </select>
 </div>
-
 <div class="col-12 col-md mb-2">
     <input type="text" class="form-control" id="search" placeholder="Search..." name="keyword"
         value="{{ request('keyword') ?: old('keyword') }}">

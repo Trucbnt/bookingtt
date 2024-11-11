@@ -4,7 +4,7 @@
             <label for="start_date">{{ __('messages.system.start') }}</label> <!-- Thêm id cho label -->
         </div>
         <div class="col-10">
-             <input type="date" class="form-control" id="start_date" name="start_date"
+            <input type="date" class="form-control" id="start_date" name="start_date"
                 value="{{ request('start_date') ?: old('start_date') }}">
         </div>
     </div>

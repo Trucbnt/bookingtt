@@ -35,6 +35,7 @@
                             $status = request('status') ?: old('status');
                             $statuses = __('messages.review.status');
                         @endphp
+
                         <select name="status" class="form-select status" data-review-id="{{ $data->id }}">
                             @foreach ($statuses as $key => $option)
                                 <option value="{{ $key }}" @selected($status == $key) @selected($data->status == $key)>
@@ -55,6 +56,7 @@
         @endif
     </tbody>
 </table>
+
 <div class="pagination-container">
     {{ $reviewDatas->links() }}
 </div>

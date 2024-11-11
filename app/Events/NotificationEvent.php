@@ -13,6 +13,7 @@ class NotificationEvent implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $dataNotification;
+
     public function __construct($dataNotification)
     {
         $this->dataNotification = $dataNotification;

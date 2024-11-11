@@ -14,15 +14,16 @@
                                     <!-- Nút tải lên -->
                                     <div class="col-lg-6 col-6">
                                         <div class="form-row">
-                                            <input type="file" id="imageInput" name="image" accept="image/*"
-                                                hidden />
+                                            <input type="file" id="imageInput" name="image" accept="image/*" hidden />
                                             <label class="btn-upload btn btn-primary mt-3"
                                                 for="imageInput">{{ __('messages.system.button.upload') }}</label>
+
                                             <!-- Nút xóa ảnh -->
                                             <button id="removeImageBtn" type="button" class="btn btn-danger mt-3"
                                                 style="display: none;">Remove</button>
                                         </div>
                                     </div>
+
                                     <!-- Ảnh xem trước và nút xóa -->
                                     <div class="col-lg-6 col-6">
                                         <img id="imagePreview"
@@ -78,8 +79,7 @@
             </div>
 
             <div class="col-lg-6 col-12 mb-2 mb-lg-1">
-                <label class="form-label mt-2"
-                    for="re_password">{{ __('messages.account.fields.re_password') }}</label>
+                <label class="form-label mt-2" for="re_password">{{ __('messages.account.fields.re_password') }}</label>
                 <input type="password" class="form-control @error('re_password') is-invalid @enderror"
                     name="re_password" id="re_password"
                     placeholder="{{ __('messages.account.fields.re_password_placeholder') }}">
@@ -92,7 +92,7 @@
                 <label class="form-label mt-2">{{ __('messages.system.status') }}</label>
                 <select class="form-select form-select-lm @error('status') is-invalid @enderror" name="status"
                     id="status">
-                    @foreach (__('messages.account.status') as $key => $value)
+                    @foreach(__('messages.account.status') as $key => $value)
                         <option value="{{ $key }}" @selected($key == old('status'))>{{ $value }}</option>
                     @endforeach
                 </select>
@@ -105,7 +105,7 @@
                 <label class="form-label mt-2">{{ __('messages.account.fields.role') }}</label>
                 <select class="form-select form-select-lm @error('role_id') is-invalid @enderror" name="role_id"
                     id="role_id">
-                    @foreach ($dataRole as $key => $value)
+                    @foreach($dataRole as $key => $value)
                         <option value="{{ $key }}" @selected($key == old('role_id'))>{{ $value }}
                         </option>
                     @endforeach
@@ -128,8 +128,8 @@
         </div>
     </div>
     <div class="d-flex justify-content-end mt-3">
-        <button type="button" class="btn btn-primary me-2"
-            onclick="executeExample('handleDismiss', 'myForm')">{{ __('messages.system.button.create') }}</button>
+        <button type="button" class="btn btn-primary me-2" onclick="executeExample('handleDismiss', 'myForm')">{{
+    __('messages.system.button.create') }}</button>
         <a href="{{ route(__('messages.account.' . $object . '.index.route')) }}">
             <button type="button" class="btn btn-danger">{{ __('messages.system.button.cancel') }}</button>
         </a>

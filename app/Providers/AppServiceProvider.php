@@ -28,8 +28,14 @@ class AppServiceProvider extends ServiceProvider
             'App\Interfaces\Services\PermissionServiceInterface' => 'App\Services\PermissionService',
             'App\Interfaces\Services\NotificationServiceInterface' => 'App\Services\NotificationService',
             'App\Interfaces\Services\ReviewServiceInterface' => 'App\Services\ReviewService',
+
+
+
             'App\Interfaces\Services\RestaurantServiceInterface' => 'App\Services\RestaurantService',
+
             'App\Interfaces\Services\MenuServiceInterface' => 'App\Services\MenuService',
+
+
         ];
 
         foreach ($services as $interface => $implementation) {
@@ -46,6 +52,7 @@ class AppServiceProvider extends ServiceProvider
         if (config('app.env') !== 'local') {
             URL::forceScheme('https');
         }
+
         View::composer('*', function ($view) {
             $reviewService = app(ReviewService::class);
             $newReviewCount = $reviewService->countNewReviews();
@@ -58,6 +65,7 @@ class AppServiceProvider extends ServiceProvider
             $view->with('dataNotification', $dataNotification);
             $view->with('unreadNotificationCount', $unreadNotificationCount);
         });
+
         Paginator::useBootstrapFive();
         Builder::useVite();
     }
